@@ -1,6 +1,8 @@
 package com.moyi.rewardrestful.service;
 
+import com.moyi.rewardrestful.dto.RewardDto;
 import com.moyi.rewardrestful.dto.TransactionDto;
+import com.moyi.rewardrestful.dto.TransactionPageResp;
 import com.moyi.rewardrestful.entity.Transaction;
 
 import java.util.List;
@@ -12,11 +14,17 @@ import java.util.List;
 public interface TransactionService {
 
 
-    List<Transaction> getAllTransByCusId(Long customerId);
+    TransactionPageResp getAllTransByCusId(Long customerId,int pageNo, int pageSize, String sortBy, String sortDir);
 
     TransactionDto createTrans(Long customerId,TransactionDto transactionDto);
     // id = transactionId
     TransactionDto updateTrans(Long customerId,Long id,TransactionDto transactionDto);
 
+    RewardDto getTotalAndMonthlyByCusId(Long customerId);
+
     void  deleteTrans(Long customerId,Long id);
+
+    void deleteTransByCustomerId(Long customerId);
+
+
 }
