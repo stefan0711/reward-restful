@@ -1,5 +1,6 @@
 package com.moyi.rewardrestful;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,5 +10,6 @@ class RewardRestfulApplicationTests {
     @Test
     void contextLoads() {
     }
+
 
 }

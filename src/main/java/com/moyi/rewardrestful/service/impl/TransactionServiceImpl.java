@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -66,9 +67,9 @@ public class TransactionServiceImpl implements TransactionService {
         List<Transaction> lastOneMonthTrans = transRepository.
                 findAllByCustomerIdAndCreateDateTimeBetween(customerId, lastMonth, LocalDateTime.now());
         List<Transaction> lastTwoMonthTrans = transRepository
-                .findAllByCustomerIdAndCreateDateTimeBetween(customerId, lastSecondMonth, LocalDateTime.now());
+                .findAllByCustomerIdAndCreateDateTimeBetween(customerId, lastSecondMonth, lastMonth);
         List<Transaction> lastThreeMonthTrans = transRepository
-                .findAllByCustomerIdAndCreateDateTimeBetween(customerId, lastThirdMonth, LocalDateTime.now());
+                .findAllByCustomerIdAndCreateDateTimeBetween(customerId, lastThirdMonth, lastSecondMonth);
 
         double lastOneMonthReward = lastOneMonthTrans.stream().mapToDouble(Transaction::getReward).sum();
         double lastTwoMonthReward = lastTwoMonthTrans.stream().mapToDouble(Transaction::getReward).sum();
@@ -133,8 +134,10 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void deleteTransByCustomerId(Long customerId) {
-        Customer customer =customerRepository.findById(customerId)
-                .orElseThrow(()->new ResourceNotFoundException("customer","customerId",customerId));
+        boolean customer =customerRepository.findById(customerId).isEmpty();
+        if(!customer){
+            return;
+        }
         transRepository.deleteByCustomerId(customerId);
     }
 

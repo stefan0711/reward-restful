@@ -16,7 +16,6 @@ public class TransactionDto {
 
     private Long customerId;
     private String customerName;
-    @NotBlank
     @PositiveOrZero   // value of purchase must be either positive or 0
     private Double purchase;
     private Double reward;
