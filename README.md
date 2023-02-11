@@ -21,3 +21,6 @@ spring.datasource.password= yourPassword
 ```
 ### Start the project in the IDE
 * Run the `reward-restful/src/main/java/com/moyi/rewardrestful/RewardRestfulApplication.java`
+
+## database schema
+![img.png](readmeRes/database.png)
